@@ -1,0 +1,57 @@
+[project]
+name = "nest-rtc"
+version = "0.1.0"
+description = "Pull live WebRTC video from Google Nest cameras through the Smart Device Management API."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "aiortc>=1.15",
+]
+
+[project.scripts]
+nest-rtc = "nest_rtc.cli:main"
+
+[dependency-groups]
+dev = [
+    "pylint>=4",
+    "pytest>=9",
+    "ruff>=0.17",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nest_rtc"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "ANN", "D", "PL", "RUF"]
+ignore = ["D203", "D213", "PLR0913"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "D", "ANN", "PLR2004", "S105", "S106"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pylint.main]
+py-version = "3.14"
+source-roots = ["src"]
+
+[tool.pylint.design]
+max-attributes = 12
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint."messages control"]
+disable = ["too-many-arguments", "too-many-positional-arguments", "too-few-public-methods"]
